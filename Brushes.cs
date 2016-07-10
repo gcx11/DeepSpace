@@ -10,19 +10,17 @@ namespace DeepSpace
 {
     class Brushes
     {
-        Dictionary<string, Brush> brushes;
+        Brush[] brushes;
         public Brushes(Game game)
         {
-            this.brushes = new Dictionary<string, Brush>();
-            brushes.Add("white", new SolidColorBrush(game.target, Color.White));
-            brushes.Add("orangered", new SolidColorBrush(game.target, Color.OrangeRed));
-            brushes.Add("cyan", new SolidColorBrush(game.target, Color.Cyan));
+            this.brushes = new Brush[]{new SolidColorBrush(game.target, Color.White), new SolidColorBrush(game.target, Color.OrangeRed), 
+            new SolidColorBrush(game.target, Color.Cyan)};
         }
-        public Brush this[string name]
+        public Brush this[int id]
         {
             get
             {
-                return brushes[name];
+                return brushes[id];
             }
         }
     }

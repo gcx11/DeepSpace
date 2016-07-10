@@ -21,7 +21,7 @@ namespace DeepSpace
         {
             this.planet = planet;
             this.ellipse = new Ellipse(planet.position, planet.size, planet.size);
-            this.brush = planet.game.brushes["white"];
+            this.brush = planet.game.brushes[planet.team];
             this.textFormat = new TextFormat(planet.game.factoryWrite, "Arial", 20);
             this.textLayout = new TextLayout(planet.game.factoryWrite, planet.population.ToString(), textFormat, 36.0f, 24.0f);
             //this.position
@@ -35,14 +35,7 @@ namespace DeepSpace
 
         public void DrawCircle()
         {
-            if (planet.team == 0)
-            {
-                brush = planet.game.brushes["white"];
-            }
-            else
-            {
-                brush = planet.game.brushes["orangered"];
-            }
+            brush = planet.game.brushes[planet.team];
             planet.game.target.DrawEllipse(ellipse, brush);
         }
 

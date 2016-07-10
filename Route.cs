@@ -31,6 +31,8 @@ namespace DeepSpace
             {
                 ships[i].Update(delta);
                 if (checkPlanetCollision(ships[i])){
+                    ships[i].destination.Invade(ships[i]);
+                    /*
                     if (ships[i].team == ships[i].destination.team)
                     {
                         ships[i].destination.population += ships[i].population;
@@ -39,6 +41,7 @@ namespace DeepSpace
                     {
                         ships[i].destination.population -= ships[i].population;
                     }
+                     * */
                     game.objects.Remove(ships[i]);
                     ships.Remove(ships[i]);
                     Console.WriteLine("INVASION!!!");

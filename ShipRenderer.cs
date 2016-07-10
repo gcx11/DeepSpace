@@ -21,7 +21,7 @@ namespace DeepSpace
         {
             this.ship = ship;
             //this.ellipse = new Ellipse(ship.position, 3.0f, 3.0f);
-            this.brush = ship.game.brushes["white"];
+            this.brush = ship.game.brushes[ship.team];
             this.normal = new Vector2(ship.direction.Y, -ship.direction.X);
             normal.Normalize();
             this.textFormat = new TextFormat(ship.game.factoryWrite, "Arial", 14);
@@ -30,14 +30,7 @@ namespace DeepSpace
 
         public void Draw()
         {
-            if (ship.team == 0)
-            {
-                brush = ship.game.brushes["white"];
-            }
-            else
-            {
-                brush = ship.game.brushes["orangered"];
-            }
+            brush = ship.game.brushes[ship.team];
             nose = ship.position + 15*ship.direction;
             middle = ship.position;
             firstWing = ship.position - 7*ship.direction - 7*normal;

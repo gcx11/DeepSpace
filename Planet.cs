@@ -49,6 +49,29 @@ namespace DeepSpace
             }
         }
 
+        public void Invade(Ship invader)
+        {
+            if (invader.team == team)
+            {
+                population += invader.population;
+            }
+            else
+            {
+                if (population < invader.population)
+                {
+                    Console.WriteLine("Yep");
+                    invader.population -= population;
+                    population = invader.population;
+                    team = invader.team;
+                }
+                else
+                {
+                    Console.WriteLine("Here");
+                    population -= invader.population;
+                }
+            }
+        }
+
         public bool isClicked(int x, int y)
         {
             return (position.X - x) * (position.X - x) + (position.Y - y) * (position.Y - y) <= size*size;

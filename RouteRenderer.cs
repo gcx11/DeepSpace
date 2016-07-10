@@ -15,7 +15,7 @@ namespace DeepSpace
         public RouteRenderer(Route route)
         {
             this.route = route;
-            this.brush = route.game.brushes["white"];
+            this.brush = route.game.brushes[0];
         }
 
         public void Draw()
