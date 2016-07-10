@@ -49,6 +49,11 @@ namespace DeepSpace
             }
         }
 
+        public bool isClicked(int x, int y)
+        {
+            return (position.X - x) * (position.X - x) + (position.Y - y) * (position.Y - y) <= size*size;
+        }
+
         public override void Draw()
         {
             planetRenderer.Draw();

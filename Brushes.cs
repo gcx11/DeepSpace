@@ -14,15 +14,14 @@ namespace DeepSpace
         public Brushes(Game game)
         {
             this.brushes = new Dictionary<string, Brush>();
-            this.brushes.Add("white", new SolidColorBrush(game.target, Color.White));
-            this.brushes.Add("orangered", new SolidColorBrush(game.target, Color.OrangeRed));
+            brushes.Add("white", new SolidColorBrush(game.target, Color.White));
+            brushes.Add("orangered", new SolidColorBrush(game.target, Color.OrangeRed));
+            brushes.Add("cyan", new SolidColorBrush(game.target, Color.Cyan));
         }
         public Brush this[string name]
         {
             get
             {
-                // This indexer is very simple, and just returns or sets
-                // the corresponding element from the internal array.
                 return brushes[name];
             }
         }

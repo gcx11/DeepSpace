@@ -15,6 +15,7 @@ namespace DeepSpace
         public List<GameObject> objects;
         public SharpDX.DirectWrite.Factory factoryWrite;
         public Brushes brushes;
+        private Planet selectedPlanet;
         public Game(WindowRenderTarget target)
         {
             this.target = target;
@@ -36,6 +37,7 @@ namespace DeepSpace
             Route temp = (Route)objects[5];
             temp.AddShip((Ship)objects[10]);
             //this.objects = new List<GameObject>();
+            this.selectedPlanet = null;
         }
 
         public void Update(float delta) 
@@ -44,6 +46,46 @@ namespace DeepSpace
             {
                 objects[i].Update(delta);
             }
+        }
+
+        public void onMouseClick(int x, int y)
+        {
+            foreach (Planet planet in objects.Where(obj => obj is Planet))
+            {
+                if (planet.isClicked(x, y)){
+                    if (selectedPlanet == null)
+                    {
+                        selectedPlanet = planet;
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} {1}", selectedPlanet.population, planet.population);
+                        SendFleet(selectedPlanet, planet);
+                        selectedPlanet = null;
+                    }
+                    break;
+                }
+            }
+        }
+
+        public void SendFleet(Planet from, Planet to)
+        {
+            foreach (Route route in objects.Where(obj => obj is Route))
+            {
+                if ((route.source == from) && (route.destination == to)){
+                    Ship ship = new Ship(this, route, from, to, 10, from.team);
+                    objects.Add(ship);
+                    route.AddShip(ship);
+                    break;
+                }
+                else if ((route.source == to) && (route.destination == from)){
+                    Ship ship = new Ship(this, route, from, to, 10, from.team);
+                    objects.Add(ship);
+                    route.AddShip(ship);
+                    break;
+                }
+            }
+            //objects.Add(new Ship(this, route, from, to, 10, from.team));
         }
 
         public void Draw()

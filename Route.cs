@@ -10,7 +10,7 @@ namespace DeepSpace
 {
     class Route: GameObject
     {
-        private Planet source, destination;
+        public Planet source, destination;
         public Vector2 start, end;
         private List<Ship> ships;
         private RouteRenderer routeRenderer;

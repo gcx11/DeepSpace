@@ -30,6 +30,14 @@ namespace DeepSpace
 
         public void Draw()
         {
+            if (ship.team == 0)
+            {
+                brush = ship.game.brushes["white"];
+            }
+            else
+            {
+                brush = ship.game.brushes["orangered"];
+            }
             nose = ship.position + 15*ship.direction;
             middle = ship.position;
             firstWing = ship.position - 7*ship.direction - 7*normal;

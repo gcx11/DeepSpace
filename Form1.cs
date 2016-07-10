@@ -103,5 +103,10 @@ namespace DeepSpace
 
             //game.Closing();
         }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            game.onMouseClick(e.X, e.Y);
+        }
     }
 }
