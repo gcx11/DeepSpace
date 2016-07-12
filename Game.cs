@@ -23,7 +23,7 @@ namespace DeepSpace
             this.brushes = new Brushes(this);
             this.objects = new List<GameObject> { new Planet(this, new Vector2(50.0f, 300.0f), 20, 0, 5), 
                                                   new Planet(this, new Vector2(200.0f, 40.0f), 15, 0, 42),
-                                                  new Planet(this, new Vector2(500.0f, 100.0f), 56, 1, 389),
+                                                  new Planet(this, new Vector2(500.0f, 100.0f), 56, 2, 289),
                                                   new Planet(this, new Vector2(700.0f, 200.0f), 30, 1, 167),
                                                   new Planet(this, new Vector2(300.0f, 400.0f), 30, 1, 215),
 
@@ -36,7 +36,6 @@ namespace DeepSpace
             objects.Add(new Ship(this, (Route)objects[6], (Planet)objects[2], (Planet)objects[1], 10, 0));
             Route temp = (Route)objects[5];
             temp.AddShip((Ship)objects[10]);
-            //this.objects = new List<GameObject>();
             this.selectedPlanet = null;
         }
 
@@ -59,7 +58,6 @@ namespace DeepSpace
                     }
                     else
                     {
-                        Console.WriteLine("{0} {1}", selectedPlanet.population, planet.population);
                         SendFleet(selectedPlanet, planet);
                         selectedPlanet = null;
                     }
@@ -72,20 +70,18 @@ namespace DeepSpace
         {
             foreach (Route route in objects.Where(obj => obj is Route))
             {
-                if ((route.source == from) && (route.destination == to)){
-                    Ship ship = new Ship(this, route, from, to, 10, from.team);
-                    objects.Add(ship);
-                    route.AddShip(ship);
-                    break;
-                }
-                else if ((route.source == to) && (route.destination == from)){
-                    Ship ship = new Ship(this, route, from, to, 10, from.team);
-                    objects.Add(ship);
-                    route.AddShip(ship);
-                    break;
+                if (((route.source == from) && (route.destination == to)) || ((route.source == to) && (route.destination == from)))
+                {
+                    if (from.population > 1)
+                    {
+                        Ship ship = new Ship(this, route, from, to, from.population/2, from.team);
+                        objects.Add(ship);
+                        route.AddShip(ship);
+                        from.population /= 2;
+                        break;
+                    }
                 }
             }
-            //objects.Add(new Ship(this, route, from, to, 10, from.team));
         }
 
         public void Draw()

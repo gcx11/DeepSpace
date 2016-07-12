@@ -43,9 +43,11 @@ namespace DeepSpace
             acc += delta;
             if (acc > 1)
             {
-                population += 1;
+                if (team != 0)
+                {
+                    population += 1;
+                }
                 acc = acc - 1;
-                //team = 1;
             }
         }
 
@@ -59,14 +61,12 @@ namespace DeepSpace
             {
                 if (population < invader.population)
                 {
-                    Console.WriteLine("Yep");
                     invader.population -= population;
                     population = invader.population;
                     team = invader.team;
                 }
                 else
                 {
-                    Console.WriteLine("Here");
                     population -= invader.population;
                 }
             }

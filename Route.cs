@@ -32,21 +32,11 @@ namespace DeepSpace
                 ships[i].Update(delta);
                 if (checkPlanetCollision(ships[i])){
                     ships[i].destination.Invade(ships[i]);
-                    /*
-                    if (ships[i].team == ships[i].destination.team)
-                    {
-                        ships[i].destination.population += ships[i].population;
-                    }
-                    else
-                    {
-                        ships[i].destination.population -= ships[i].population;
-                    }
-                     * */
                     game.objects.Remove(ships[i]);
                     ships.Remove(ships[i]);
-                    Console.WriteLine("INVASION!!!");
                 }
             }
+            checkShipCollision();
         }
 
         public void AddShip(Ship ship)
@@ -59,6 +49,50 @@ namespace DeepSpace
             float distanceFromPlanet = (ship.destination.position.X - ship.position.X) * (ship.destination.position.X - ship.position.X) +
                 (ship.destination.position.Y - ship.position.Y) * (ship.destination.position.Y - ship.position.Y);
             return (distanceFromPlanet <= ship.destination.size * ship.destination.size);
+        }
+
+
+        private void checkShipCollision()
+        {
+            for (int i = 0; i < ships.Count; i++)
+            {
+                for (int j = i + 1; j < ships.Count; j++)
+                {
+                    if (CollideShips(ships[i], ships[j])){
+                        if (ships[i].population > ships[j].population)
+                        {
+                            ships[i].population -= ships[j].population;
+                            ships[j].population = 0;
+                        }
+                        else if (ships[i].population < ships[j].population)
+                        {
+                            ships[j].population -= ships[i].population;
+                            ships[i].population = 0;
+                        }
+                        else
+                        {
+                            ships[i].population = 0;
+                            ships[j].population = 0;
+                        }
+                    }
+                }
+            }
+            int lenght = ships.Count;
+            for (int i = 0; i < lenght; i++)
+            {
+                if (ships[i].population == 0)
+                {
+                    game.objects.Remove(ships[i]);
+                    ships.RemoveAt(i);
+                    lenght--;
+                }
+            }
+        }
+
+        private bool CollideShips(Ship first, Ship second)
+        {
+            float distance = (first.position.X - second.position.X) * (first.position.X - second.position.X) + (first.position.Y - second.position.Y) * (first.position.Y - second.position.Y);
+            return (distance < 10.0f * 10.0f) && (first.team != second.team);
         }
 
         public override void Draw()
