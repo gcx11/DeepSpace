@@ -36,7 +36,12 @@ namespace DeepSpace
         public void DrawCircle()
         {
             brush = planet.game.brushes[planet.team];
-            planet.game.target.DrawEllipse(ellipse, brush);
+            float thickness = 1.0f;
+            if (planet.game.selectedPlanet == planet)
+            {
+                thickness = 3.0f;
+            }
+            planet.game.target.DrawEllipse(ellipse, brush, thickness);
         }
 
 

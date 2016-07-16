@@ -36,7 +36,9 @@ namespace DeepSpace
             props.DashStyle = DashStyle.Dash;
             props.StartCap = CapStyle.Flat;
             props.EndCap = CapStyle.Flat;
+            brush.Opacity = 0.7f;
             route.game.target.DrawLine(route.start, route.end, brush, 1.0f, new StrokeStyle(route.game.target.Factory, props));
+            brush.Opacity = 1.0f;
 
         }
     }

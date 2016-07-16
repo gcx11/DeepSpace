@@ -15,7 +15,7 @@ namespace DeepSpace
         public List<GameObject> objects;
         public SharpDX.DirectWrite.Factory factoryWrite;
         public Brushes brushes;
-        private Planet selectedPlanet;
+        public Planet selectedPlanet;
         public Game(WindowRenderTarget target)
         {
             this.target = target;
