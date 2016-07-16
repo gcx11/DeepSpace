@@ -37,7 +37,8 @@ namespace DeepSpace
         {
             brush = planet.game.brushes[planet.team];
             float thickness = 1.0f;
-            if (planet.game.selectedPlanet == planet)
+            GameScene scene = (GameScene)planet.game.scene;
+            if (scene.selectedPlanet == planet)
             {
                 thickness = 3.0f;
             }

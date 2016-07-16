@@ -32,7 +32,7 @@ namespace DeepSpace
                 ships[i].Update(delta);
                 if (checkPlanetCollision(ships[i])){
                     ships[i].destination.Invade(ships[i]);
-                    game.objects.Remove(ships[i]);
+                    game.scene.objects.Remove(ships[i]);
                     ships.Remove(ships[i]);
                 }
             }
@@ -82,7 +82,7 @@ namespace DeepSpace
             {
                 if (ships[i].population == 0)
                 {
-                    game.objects.Remove(ships[i]);
+                    game.scene.objects.Remove(ships[i]);
                     ships.RemoveAt(i);
                     lenght--;
                 }
