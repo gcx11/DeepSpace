@@ -31,9 +31,14 @@ namespace DeepSpace
             }
         }
 
-        public void onMouseClick(int x, int y)
+        public void OnMouseClick(int x, int y)
         {
             scene.OnMouseClick(x, y);
+        }
+
+        public void OnMouseMove(int x, int y)
+        {
+            scene.OnMouseMove(x, y);
         }
 
         public void Draw()

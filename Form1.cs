@@ -106,7 +106,12 @@ namespace DeepSpace
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            game.onMouseClick(e.X, e.Y);
+            game.OnMouseClick(e.X, e.Y);
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            game.OnMouseMove(e.X, e.Y);
         }
     }
 }

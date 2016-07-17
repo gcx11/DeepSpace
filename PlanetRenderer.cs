@@ -9,7 +9,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class PlanetRenderer
+    class PlanetRenderer: Renderer
     {
         private Planet planet;
         private Ellipse ellipse;
@@ -48,7 +48,6 @@ namespace DeepSpace
 
         public void DrawValueInCircle()
         {
-            
             float offset = calculateOffset(planet.population);
             Vector2 temp = new Vector2(offset, 12.0f);
             position = planet.position - temp;

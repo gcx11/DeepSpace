@@ -14,7 +14,8 @@ namespace DeepSpace
         public Brushes(Game game)
         {
             this.brushes = new Brush[]{new SolidColorBrush(game.target, Color.White), new SolidColorBrush(game.target, Color.OrangeRed), 
-            new SolidColorBrush(game.target, Color.Cyan)};
+                                       new SolidColorBrush(game.target, Color.Cyan), new SolidColorBrush(game.target, Color.LimeGreen),
+                                       new SolidColorBrush(game.target, Color.Yellow), new SolidColorBrush(game.target, Color.Magenta)};
         }
         public Brush this[int id]
         {
@@ -23,5 +24,6 @@ namespace DeepSpace
                 return brushes[id];
             }
         }
+        
     }
 }

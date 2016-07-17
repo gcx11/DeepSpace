@@ -9,7 +9,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class ShipRenderer
+    class ShipRenderer: Renderer
     {
         private Ship ship;
         //private Ellipse ellipse;
