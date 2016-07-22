@@ -93,6 +93,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameScene.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="LevelGenerator.cs" />
     <Compile Include="MenuScene.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="PlanetRenderer.cs" />

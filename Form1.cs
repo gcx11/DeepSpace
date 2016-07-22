@@ -64,6 +64,9 @@ namespace DeepSpace
 
             //avoid artifacts
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque, true);
+
+            //minimal size
+            this.MinimumSize = new Size(800, 600);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)

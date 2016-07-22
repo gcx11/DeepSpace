@@ -20,7 +20,7 @@ namespace DeepSpace
             this.target = target;
             this.factoryWrite = new SharpDX.DirectWrite.Factory();
             this.brushes = new Brushes(this);
-            this.scene = new GameScene(this);
+            this.scene = new MenuScene(this);
         }
 
         public void Update(float delta) 

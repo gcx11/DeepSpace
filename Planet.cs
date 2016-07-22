@@ -22,7 +22,7 @@ namespace DeepSpace
         {
             this.position = position;
             this.size = size;
-            this.population = 0;
+            this.population = population;
             this.acc = 0;
             this.planetRenderer = new PlanetRenderer(this);
         }
@@ -41,13 +41,13 @@ namespace DeepSpace
         public override void Update(float delta)
         {
             acc += delta;
-            if (acc > 1)
+            if (acc > 1 - size/100.0f)
             {
                 if (team != 0)
                 {
                     population += 1;
                 }
-                acc = acc - 1;
+                acc = acc - 1 + size/100.0f;
             }
         }
 
@@ -72,7 +72,7 @@ namespace DeepSpace
             }
         }
 
-        public bool isClicked(int x, int y)
+        public bool IsClicked(int x, int y)
         {
             return (position.X - x) * (position.X - x) + (position.Y - y) * (position.Y - y) <= size*size;
         }

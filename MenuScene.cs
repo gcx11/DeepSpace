@@ -13,10 +13,25 @@ namespace DeepSpace
     {
         public MenuScene(Game game): base(game)
         {
-            this.objects = new List<GameObject>() {new Button(game, new Vector2(200.0f, 150.0f), 70.0f, 1), 
+            Button levelMode = new Button(game, new Vector2(200.0f, 150.0f), 70.0f, 1);
+            levelMode.buttonClickedEvent += delegate{
+                game.scene = new GameScene(game);
+            };
+            this.objects = new List<GameObject>() {levelMode, 
                 new Text(game, new Vector2(150.0f, 140.0f), "Level mode"), new Button(game, new Vector2(510.0f, 250.0f), 80.0f, 3), 
                 new Text(game, new Vector2(450.0f, 240.0f), "Survival mode"), new Button(game, new Vector2(270.0f, 350.0f), 40.0f, 2), 
                 new Text(game, new Vector2(250.0f, 340.0f), "Exit")};
+        }
+
+        public override void OnMouseClick(int x, int y)
+        {
+            foreach (Button button in objects.Where(obj => obj is Button))
+            {
+                if (button.IsClicked(x, y))
+                {
+                    button.OnClicked();
+                }
+            }
         }
     }
 }
