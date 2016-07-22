@@ -12,6 +12,7 @@ namespace DeepSpace
     class GameScene : Scene
     {
         public Planet selectedPlanet;
+        public int playerTeam;
 
         public GameScene(Game game)
             : base(game)
@@ -19,8 +20,8 @@ namespace DeepSpace
             this.selectedPlanet = null;
             this.objects = new List<GameObject> { new Planet(game, new Vector2(50.0f, 300.0f), 20, 0, 5), 
                                                   new Planet(game, new Vector2(200.0f, 40.0f), 15, 0, 42),
-                                                  new Planet(game, new Vector2(500.0f, 100.0f), 56, 3, 289),
-                                                  new Planet(game, new Vector2(700.0f, 200.0f), 30, 1, 167),
+                                                  new Planet(game, new Vector2(500.0f, 100.0f), 56, 3, 100),
+                                                  new Planet(game, new Vector2(700.0f, 200.0f), 30, 1, 300),
                                                   new Planet(game, new Vector2(300.0f, 400.0f), 30, 4, 215),
 
             };
@@ -29,9 +30,8 @@ namespace DeepSpace
             objects.Add(new Route(game, (Planet)objects[2], (Planet)objects[0]));
             objects.Add(new Route(game, (Planet)objects[2], (Planet)objects[3]));
             objects.Add(new Route(game, (Planet)objects[0], (Planet)objects[4]));
-            objects.Add(new Ship(game, (Route)objects[6], (Planet)objects[2], (Planet)objects[1], 10, 0));
-            Route temp = (Route)objects[5];
-            temp.AddShip((Ship)objects[10]);
+            this.playerTeam = 1;
+            objects.Add(new AI(game));
         }
 
         public override void OnMouseClick(int x, int y)
@@ -40,7 +40,7 @@ namespace DeepSpace
             {
                 if (planet.isClicked(x, y))
                 {
-                    if (selectedPlanet == null)
+                    if (selectedPlanet == null && (planet.team == playerTeam))
                     {
                         selectedPlanet = planet;
                     }

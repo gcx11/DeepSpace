@@ -12,13 +12,15 @@ namespace DeepSpace
     class Button: GameObject
     {
         public Vector2 position;
-        public float width, height;
+        public float size;
+        public string text;
+        public int team;
         private ButtonRenderer buttonRenderer;
-        public Button(Game game, Vector2 position, float width, float height): base(game)
+        public Button(Game game, Vector2 position, float size, int team): base(game)
         {
             this.position = position;
-            this.width = width;
-            this.height = height;
+            this.size = size;
+            this.team = team;
             this.buttonRenderer = new ButtonRenderer(this);
         }
 
