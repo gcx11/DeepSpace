@@ -12,28 +12,89 @@ namespace DeepSpace
     class LevelGenerator
     {
         private static Random rnd = new Random();
-        public static List<GameObject> GenerateLevel(Game game, uint planetCount)
+        public static List<GameObject> GenerateLevel(Game game, uint planetsCount)
         {
             List<GameObject> objects = new List<GameObject>();
             List<Planet> planets = new List<Planet>();
-            List<Route> routes = new List<Route>(); 
-            for (int i = 0; i < planetCount; i++)
+            List<Route> routes = new List<Route>();
+            makeCenter(game, planetsCount, planets);
+            connectPlanets(game, planets, routes);
+            routes.RemoveAt(rnd.Next(routes.Count));
+            bool centerMode = (rnd.Next(3) > 0); // 66% chance
+            if (centerMode)
             {
-                float x = 400.0f + 300.0f * (float)Math.Cos(2 * i * Math.PI / planetCount) + rnd.NextFloat(-20, 20);
-                float y = 300.0f + 150.0f * (float)Math.Sin(2 * i * Math.PI / planetCount) + rnd.NextFloat(-20, 20);
-                planets.Add(new Planet(game, new Vector2(x, y), (uint)(20+rnd.Next(40)), (uint)rnd.Next(10)));
+                createCentralPlanet(game, planets, routes);
             }
+            else
+            {
+                addRandomRoute(game, planets, routes);
+                addRandomRoute(game, planets, routes);
+            }
+            setPlanets(game, planets, 3);
+            objects.AddRange(planets);
+            objects.AddRange(routes);
+            return objects;
+        }
+
+        private static void setPlanets(Game game, List<Planet> planets, uint enemyCount)
+        {
+            enemyCount++;
+            List<int> unusedPlanets = Enumerable.Range(0, planets.Count).ToList();
+            for (int i = 0; i < enemyCount; i++)
+            {
+                int randomIndex = unusedPlanets[rnd.Next(unusedPlanets.Count)];
+                unusedPlanets.Remove(randomIndex);
+                Planet randomPlanet = planets[randomIndex];
+                randomPlanet.population = 10;
+                randomPlanet.team = i + 1;
+            }
+        }
+
+        private static void createCentralPlanet(Game game, List<Planet> planets, List<Route> routes)
+        {
+            Vector2 position = new Vector2(400.0f, 300.0f) + rnd.NextVector2(new Vector2(-20.0f, -20.0f), new Vector2(20.0f, 20.0f));
+            Planet central = new Planet(game, position, (uint)(20 + rnd.Next(40)), (uint)rnd.Next(10));
+            int routesCount = rnd.Next(1, 4);
+            List<int> indicesNotConnected = Enumerable.Range(0, planets.Count).ToList<int>();
+            for (int i = 0; i < routesCount; i++)
+            {
+                int planetIndex = indicesNotConnected[rnd.Next(indicesNotConnected.Count)];
+                indicesNotConnected.Remove(planetIndex);
+                routes.Add(new Route(game, central, planets[planetIndex]));
+            }
+            planets.Add(central);
+        }
+
+        private static void addRandomRoute(Game game, List<Planet> planets, List<Route> routes)
+        {
+            int choosen = rnd.Next(routes.Count);
+            foreach (Route route in routes)
+            {
+                if ((route.source == planets[choosen] && route.destination == planets[(choosen + 3) % planets.Count]) ||
+                    (route.destination == planets[choosen] && route.source == planets[(choosen + 3) % planets.Count]))
+                {
+                    return;
+                }
+            }
+            routes.Add(new Route(game, planets[choosen], planets[(choosen + 3) % planets.Count]));
+        }
+
+        private static void connectPlanets(Game game, List<Planet> planets, List<Route> routes)
+        {
             for (int i = 0; i < planets.Count; i++)
             {
                 routes.Add(new Route(game, planets[i], planets[(i + 1) % planets.Count]));
             }
-            routes.RemoveAt(rnd.Next(routes.Count));
-            int choosen = rnd.Next(routes.Count);
-            routes.Add(new Route(game, planets[choosen], planets[(choosen + 3) % planets.Count]));
-            objects.AddRange(planets);
-            objects.AddRange(routes);
-            Console.WriteLine(objects.Count);
-            return objects;
+        }
+
+        private static void makeCenter(Game game, uint planetsInCenterCount, List<Planet> planets)
+        {
+            for (int i = 0; i < planetsInCenterCount; i++)
+            {
+                float x = 400.0f + 300.0f * (float)Math.Cos(2 * i * Math.PI / planetsInCenterCount) + rnd.NextFloat(-20, 20);
+                float y = 300.0f + 200.0f * (float)Math.Sin(2 * i * Math.PI / planetsInCenterCount) + rnd.NextFloat(-20, 20);
+                planets.Add(new Planet(game, new Vector2(x, y), (uint)(20 + rnd.Next(40)), (uint)rnd.Next(10)));
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DeepSpace
         public Planet source, destination;
         public Vector2 start, end;
         private List<Ship> ships;
+        public bool autoTransfer;
         private RouteRenderer routeRenderer;
 
         public Route(Game game, Planet source, Planet destination): base(game)
@@ -20,6 +21,7 @@ namespace DeepSpace
             this.source = source;
             this.destination = destination;
             this.ships = new List<Ship>();
+            this.autoTransfer = false;
             double angle = Math.Atan2(source.position.Y-destination.position.Y, source.position.X-destination.position.X);
             this.start = source.position - source.size * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             this.end = destination.position + destination.size * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
