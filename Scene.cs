@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -20,7 +21,7 @@ namespace DeepSpace
             this.objects = new List<GameObject>();
         }
 
-        public virtual void OnMouseClick(int x, int y){
+        public virtual void OnMouseClick(int x, int y, MouseButtons mouseButtons){
         }
 
         public virtual void OnMouseMove(int x, int y)

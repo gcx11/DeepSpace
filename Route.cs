@@ -14,6 +14,7 @@ namespace DeepSpace
         public Vector2 start, end;
         private List<Ship> ships;
         public bool autoTransfer;
+        private float acc;
         private RouteRenderer routeRenderer;
 
         public Route(Game game, Planet source, Planet destination): base(game)
@@ -22,6 +23,7 @@ namespace DeepSpace
             this.destination = destination;
             this.ships = new List<Ship>();
             this.autoTransfer = false;
+            this.acc = 0.0f;
             double angle = Math.Atan2(source.position.Y-destination.position.Y, source.position.X-destination.position.X);
             this.start = source.position - source.size * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             this.end = destination.position + destination.size * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
@@ -29,10 +31,39 @@ namespace DeepSpace
         }
 
         public override void Update(float delta){
+            updateShips(delta);
+            updateTransfer(delta);
+        }
+
+        private void updateTransfer(float delta)
+        {
+            if (source.team != ((GameScene)game.scene).playerTeam)
+            {
+                autoTransfer = false;
+            }
+            if (autoTransfer)
+            {
+                acc += delta;
+                if (acc > 5)
+                {
+                    GameScene gameScene = (GameScene)game.scene;
+                    gameScene.SendFleet(source, destination);
+                    acc = acc - 5;
+                }
+            }
+            else
+            {
+                acc = 0.0f;
+            }
+        }
+
+        private void updateShips(float delta)
+        {
             for (int i = 0; i < ships.Count; i++)
             {
                 ships[i].Update(delta);
-                if (checkPlanetCollision(ships[i])){
+                if (checkPlanetCollision(ships[i]))
+                {
                     ships[i].destination.Invade(ships[i]);
                     game.scene.objects.Remove(ships[i]);
                     ships.Remove(ships[i]);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -27,7 +28,7 @@ namespace DeepSpace
                 new Text(game, new Vector2(250.0f, 340.0f), "Exit")};
         }
 
-        public override void OnMouseClick(int x, int y)
+        public override void OnMouseClick(int x, int y, MouseButtons mouseButtons)
         {
             foreach (Button button in objects.Where(obj => obj is Button))
             {

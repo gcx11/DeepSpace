@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
@@ -31,9 +32,9 @@ namespace DeepSpace
             }
         }
 
-        public void OnMouseClick(int x, int y)
+        public void OnMouseClick(int x, int y, MouseButtons mouseButtons)
         {
-            scene.OnMouseClick(x, y);
+            scene.OnMouseClick(x, y, mouseButtons);
         }
 
         public void OnMouseMove(int x, int y)

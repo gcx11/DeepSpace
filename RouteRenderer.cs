@@ -12,12 +12,25 @@ namespace DeepSpace
     {
         private Route route;
         private Brush brush;
+        private StrokeStyle strokeStyle;
         private int team;
+        private Vector2 center, perpendicular;
         public RouteRenderer(Route route)
         {
             this.route = route;
             this.team = 0;
             this.brush = route.game.brushes[team];
+            this.center = (route.start + route.end) / 2.0f;
+            Vector2 direction = route.start - route.end;
+            this.perpendicular = new Vector2(direction.Y, -direction.X);
+            this.perpendicular.Normalize();
+
+            StrokeStyleProperties props = new StrokeStyleProperties();
+            props.DashOffset = 0.1f;
+            props.DashStyle = DashStyle.Dash;
+            props.StartCap = CapStyle.Flat;
+            props.EndCap = CapStyle.Flat;
+            this.strokeStyle = new StrokeStyle(route.game.target.Factory, props);
         }
 
         public void Draw()
@@ -31,13 +44,19 @@ namespace DeepSpace
                 team = 0;
             }
             brush = route.game.brushes[team];
-            StrokeStyleProperties props = new StrokeStyleProperties();
-            props.DashOffset = 0.1f;
-            props.DashStyle = DashStyle.Dash;
-            props.StartCap = CapStyle.Flat;
-            props.EndCap = CapStyle.Flat;
+            
             brush.Opacity = 0.7f;
-            route.game.target.DrawLine(route.start, route.end, brush, 1.0f, new StrokeStyle(route.game.target.Factory, props));
+            route.game.target.DrawLine(route.start, route.end, brush, 1.0f, strokeStyle);
+            if (route.autoTransfer)
+            {
+                Vector2 direction = route.end - route.start;
+                direction.Normalize();
+                Vector2 head = center + 15.0f * direction;
+                Vector2 first = center - 10.0f * direction + 10.0f * perpendicular;
+                Vector2 second = center - 10.0f * direction - 10.0f * perpendicular;
+                route.game.target.DrawLine(head, first, brush, 1.0f, strokeStyle);
+                route.game.target.DrawLine(head, second, brush, 1.0f, strokeStyle);
+            }
             brush.Opacity = 1.0f;
 
         }

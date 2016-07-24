@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -37,7 +38,7 @@ namespace DeepSpace
             objects.Add(new AI(game));
         }
 
-        public override void OnMouseClick(int x, int y)
+        public override void OnMouseClick(int x, int y, MouseButtons mouseButtons)
         {
             foreach (Planet planet in objects.Where(obj => obj is Planet))
             {
@@ -49,7 +50,36 @@ namespace DeepSpace
                     }
                     else
                     {
-                        SendFleet(selectedPlanet, planet);
+                        if (mouseButtons == MouseButtons.Left)
+                        {
+                            SendFleet(selectedPlanet, planet);
+                        }
+                        else if (mouseButtons == MouseButtons.Right)
+                        {
+                            foreach (Route route in objects.Where(obj => obj is Route))
+                            {
+                                if (((route.source == selectedPlanet) && (route.destination == planet)) ||
+                                    ((route.source == planet) && (route.destination == selectedPlanet)))
+                                {
+                                    if (route.autoTransfer == false)
+                                    {
+                                        Console.WriteLine("Change");
+                                        if (route.source != selectedPlanet)
+                                        {
+                                            Vector2 temp = route.start; route.start = route.end; route.end = temp;
+                                        }
+                                        route.autoTransfer = true;
+                                        route.source = selectedPlanet;
+                                        route.destination = planet;
+                                    }
+                                    else
+                                    {
+                                        route.autoTransfer = false;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
                         selectedPlanet = null;
                     }
                     break;
