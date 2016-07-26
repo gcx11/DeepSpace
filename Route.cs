@@ -12,7 +12,7 @@ namespace DeepSpace
     {
         public Planet source, destination;
         public Vector2 start, end;
-        private List<Ship> ships;
+        public List<Ship> ships;
         public bool autoTransfer;
         private float acc;
         private RouteRenderer routeRenderer;

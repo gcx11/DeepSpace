@@ -10,32 +10,49 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
+    enum GameMode
+    {
+        LEVELS,
+        SURVIVAL
+    }
     class GameScene : Scene
     {
         public Planet selectedPlanet;
         public int playerTeam;
+        private static Random rnd = new Random();
 
         public GameScene(Game game)
             : base(game)
         {
             this.selectedPlanet = null;
-            /*
-            this.objects = new List<GameObject> { new Planet(game, new Vector2(50.0f, 300.0f), 20, 0, 5), 
-                                                  new Planet(game, new Vector2(200.0f, 40.0f), 15, 5, 42),
-                                                  new Planet(game, new Vector2(500.0f, 100.0f), 56, 3, 100),
-                                                  new Planet(game, new Vector2(700.0f, 200.0f), 30, 1, 300),
-                                                  new Planet(game, new Vector2(300.0f, 400.0f), 30, 4, 215),
+            if (game.level == 0)
+            {
+                //survival
+                this.objects = LevelGenerator.GenerateLevel(game, (uint)rnd.Next(5, 8));
+                this.playerTeam = 1;
+                objects.Add(new AI(game));
+                objects.Add(new WinLooseChecker(game));
+            }
+            else if (game.level < 5)
+            {
+                this.objects = LevelLoader.LoadLevel(game, game.level);
+                this.playerTeam = 1;
+                objects.Add(new AI(game));
+                objects.Add(new WinLooseChecker(game));
+            }
+            else
+            {
+                game.scene = new CongratulationScene(game);
+            }
+            
+        }
 
-            };
-            objects.Add(new Route(game, (Planet)objects[0], (Planet)objects[1]));
-            objects.Add(new Route(game, (Planet)objects[1], (Planet)objects[2]));
-            objects.Add(new Route(game, (Planet)objects[2], (Planet)objects[0]));
-            objects.Add(new Route(game, (Planet)objects[2], (Planet)objects[3]));
-            objects.Add(new Route(game, (Planet)objects[0], (Planet)objects[4]));
-            */
-            this.objects = LevelGenerator.GenerateLevel(game, 7);
-            this.playerTeam = 1;
-            objects.Add(new AI(game));
+        public override void OnKeyPress(KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                game.scene = new MenuScene(game);
+            }
         }
 
         public override void OnMouseClick(int x, int y, MouseButtons mouseButtons)
@@ -63,7 +80,6 @@ namespace DeepSpace
                                 {
                                     if (route.autoTransfer == false)
                                     {
-                                        Console.WriteLine("Change");
                                         if (route.source != selectedPlanet)
                                         {
                                             Vector2 temp = route.start; route.start = route.end; route.end = temp;

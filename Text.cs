@@ -24,6 +24,15 @@ namespace DeepSpace
             this.textLayout = new TextLayout(game.factoryWrite, text, textFormat, 16.0f * text.Length, 24.0f);
         }
 
+        public Text(Game game, Vector2 position, string text, float size)
+            : base(game)
+        {
+            this.position = position;
+            this.brush = game.brushes[0];
+            this.textFormat = new TextFormat(game.factoryWrite, "Arial", size);
+            this.textLayout = new TextLayout(game.factoryWrite, text, textFormat, 16.0f * text.Length, size + 4.0f);
+        }
+
         public override void Update(float delta)
         {
 
@@ -31,7 +40,9 @@ namespace DeepSpace
 
         public override void Draw()
         {
+            brush.Opacity = 0.8f;
             game.target.DrawTextLayout(position, textLayout, brush);
+            brush.Opacity = 1.0f;
         }
     }
 }

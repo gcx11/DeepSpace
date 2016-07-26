@@ -28,6 +28,11 @@ namespace DeepSpace
         {
 
         }
+
+        public virtual void OnKeyPress(KeyPressEventArgs e)
+        {
+            
+        }
     }
 
 }

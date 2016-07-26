@@ -16,6 +16,7 @@ namespace DeepSpace
         public SharpDX.DirectWrite.Factory factoryWrite;
         public Brushes brushes;
         public Scene scene;
+        public int level;
         public Game(WindowRenderTarget target)
         {
             this.target = target;
@@ -40,6 +41,11 @@ namespace DeepSpace
         public void OnMouseMove(int x, int y)
         {
             scene.OnMouseMove(x, y);
+        }
+
+        public void OnKeyPress(KeyPressEventArgs e)
+        {
+            scene.OnKeyPress(e);
         }
 
         public void Draw()

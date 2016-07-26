@@ -45,7 +45,7 @@ namespace DeepSpace
                 DpiY = 0,
                 MinLevel = FeatureLevel.Level_10,
                 PixelFormat = new SharpDX.Direct2D1.PixelFormat(SharpDX.DXGI.Format.B8G8R8A8_UNorm, AlphaMode.Premultiplied),
-                Type = RenderTargetType.Hardware,
+                Type = RenderTargetType.Default,
                 Usage = RenderTargetUsage.None
             };
 
@@ -67,6 +67,8 @@ namespace DeepSpace
 
             //minimal size
             this.MinimumSize = new Size(800, 600);
+            this.Size = new Size(800, 600);
+            this.MaximumSize = new Size(800, 600);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -118,6 +120,11 @@ namespace DeepSpace
             {
                 game.OnMouseMove(e.X, e.Y);
             }
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            game.OnKeyPress(e);
         }
     }
 }
