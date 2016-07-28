@@ -10,7 +10,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class Text: GameObject
+    class Text: GameObject, IDisposable
     {
         private Vector2 position;
         private Brush brush;
@@ -43,6 +43,12 @@ namespace DeepSpace
             brush.Opacity = 0.8f;
             game.target.DrawTextLayout(position, textLayout, brush);
             brush.Opacity = 1.0f;
+        }
+
+        public void Dispose()
+        {
+            textFormat.Dispose();
+            textLayout.Dispose();
         }
     }
 }

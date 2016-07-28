@@ -106,7 +106,7 @@ namespace DeepSpace
             target.Dispose();
             factory.Dispose();
 
-            //game.Closing();
+            game.Closing();
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)

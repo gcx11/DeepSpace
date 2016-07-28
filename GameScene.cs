@@ -47,6 +47,7 @@ namespace DeepSpace
         {
             if (e.KeyChar == (char)Keys.Escape)
             {
+                game.scene.Dispose();
                 game.scene = new MenuScene(game);
             }
         }

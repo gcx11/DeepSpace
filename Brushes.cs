@@ -8,7 +8,7 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
-    class Brushes
+    class Brushes: IDisposable
     {
         Brush[] brushes;
         public Brushes(Game game)
@@ -22,6 +22,14 @@ namespace DeepSpace
             get
             {
                 return brushes[id];
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (Brush brush in brushes)
+            {
+                brush.Dispose();
             }
         }
         

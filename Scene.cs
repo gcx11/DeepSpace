@@ -10,7 +10,7 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
-    class Scene
+    class Scene: IDisposable
     {
         public List<GameObject> objects;
         public Game game;
@@ -32,6 +32,14 @@ namespace DeepSpace
         public virtual void OnKeyPress(KeyPressEventArgs e)
         {
             
+        }
+
+        public void Dispose()
+        {
+            foreach (GameObject obj in objects.Where(obj => obj is IDisposable))
+            {
+                ((IDisposable)obj).Dispose();
+            }
         }
     }
 

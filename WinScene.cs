@@ -21,10 +21,12 @@ namespace DeepSpace
                     game.level++;
                 }
                 if (game.level <= 4) {
+                    game.scene.Dispose();
                     game.scene = new GameScene(game);
                 }
                 else
                 {
+                    game.scene.Dispose();
                     game.scene = new CongratulationScene(game);
                 }
             };

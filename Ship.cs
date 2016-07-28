@@ -7,7 +7,7 @@ using SharpDX;
 
 namespace DeepSpace
 {
-    class Ship: GameObject
+    class Ship: GameObject, IDisposable
     {
         public uint population;
         public int team;
@@ -56,6 +56,11 @@ namespace DeepSpace
         public override void Draw()
         {
             shipRenderer.Draw();
+        }
+
+        public void Dispose()
+        {
+            shipRenderer.Dispose();
         }
 
     }

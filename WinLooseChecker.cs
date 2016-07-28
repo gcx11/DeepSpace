@@ -19,11 +19,12 @@ namespace DeepSpace
             bool playerStillAlive = checkForPlayer(game);
             if (playerStillAlive && !enemyStillAlive)
             {
+                game.scene.Dispose();
                 game.scene = new WinScene(game);
             }
             else if (!playerStillAlive && enemyStillAlive)
             {
-
+                game.scene.Dispose();
                 game.scene = new LooseScene(game);
             }
         }

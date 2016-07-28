@@ -9,7 +9,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class ShipRenderer: IRenderer
+    class ShipRenderer: IRenderer, IDisposable
     {
         private Ship ship;
         private Vector2 nose, firstWing, secondWing, middle, normal;
@@ -41,6 +41,13 @@ namespace DeepSpace
             textLayout.Dispose();
             textLayout = new TextLayout(ship.game.factoryWrite, ship.population.ToString(), textFormat, 36.0f, 24.0f);
             ship.game.target.DrawTextLayout(ship.position + new Vector2(5.0f, -20.0f), textLayout, brush);
+        }
+
+
+        public void Dispose()
+        {
+            textFormat.Dispose();
+            textLayout.Dispose();
         }
     }
 }

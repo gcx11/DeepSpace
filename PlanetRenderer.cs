@@ -9,7 +9,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class PlanetRenderer: IRenderer
+    class PlanetRenderer: IRenderer, IDisposable
     {
         private Planet planet;
         private Ellipse ellipse;
@@ -24,7 +24,6 @@ namespace DeepSpace
             this.brush = planet.game.brushes[planet.team];
             this.textFormat = new TextFormat(planet.game.factoryWrite, "Arial", 20);
             this.textLayout = new TextLayout(planet.game.factoryWrite, planet.population.ToString(), textFormat, 36.0f, 24.0f);
-            //this.position
         }
 
         public void Draw()
@@ -72,6 +71,11 @@ namespace DeepSpace
                 return 16.0f;
             }
         }
-        
+
+        public void Dispose()
+        {
+            textFormat.Dispose();
+            textLayout.Dispose();
+        }
     }
 }

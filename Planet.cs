@@ -9,7 +9,7 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
-    class Planet : GameObject
+    class Planet : GameObject, IDisposable
     {
         public Vector2 position;
         public uint population, size;
@@ -80,6 +80,11 @@ namespace DeepSpace
         public override void Draw()
         {
             planetRenderer.Draw();
+        }
+
+        public void Dispose()
+        {
+            planetRenderer.Dispose();
         }
     }
 }

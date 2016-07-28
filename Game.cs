@@ -55,5 +55,11 @@ namespace DeepSpace
                 obj.Draw();
             }
         }
+
+        public void Closing()
+        {
+            scene.Dispose();
+            brushes.Dispose();
+        }
     }
 }

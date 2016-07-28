@@ -8,7 +8,7 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
-    class RouteRenderer: IRenderer
+    class RouteRenderer: IRenderer, IDisposable
     {
         private Route route;
         private Brush brush;
@@ -59,6 +59,11 @@ namespace DeepSpace
             }
             brush.Opacity = 1.0f;
 
+        }
+
+        public void Dispose()
+        {
+            strokeStyle.Dispose();
         }
     }
 }

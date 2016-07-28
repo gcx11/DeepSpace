@@ -17,6 +17,7 @@ namespace DeepSpace
             Button menuButton = new Button(game, new Vector2(400.0f, 300.0f), 100.0f, 2);
             menuButton.buttonClickedEvent += delegate{
                 if (game.level != 0) game.level++;
+                game.scene.Dispose();
                 game.scene = new MenuScene(game);
             };
             this.objects = new List<GameObject>() {menuButton, 

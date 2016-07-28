@@ -8,7 +8,7 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
-    class Route: GameObject
+    class Route: GameObject, IDisposable
     {
         public Planet source, destination;
         public Vector2 start, end;
@@ -66,6 +66,7 @@ namespace DeepSpace
                 {
                     ships[i].destination.Invade(ships[i]);
                     game.scene.objects.Remove(ships[i]);
+                    ships[i].Dispose();
                     ships.Remove(ships[i]);
                 }
             }
@@ -116,6 +117,7 @@ namespace DeepSpace
                 if (ships[i].population == 0)
                 {
                     game.scene.objects.Remove(ships[i]);
+                    ships[i].Dispose();
                     ships.RemoveAt(i);
                     lenght--;
                 }
@@ -135,6 +137,11 @@ namespace DeepSpace
             {
                 ship.Draw();
             }
+        }
+
+        public void Dispose()
+        {
+            routeRenderer.Dispose();
         }
     }
 }
