@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeepSpace
 {
-    interface Renderer
+    interface IRenderer
     {
         void Draw();
     }

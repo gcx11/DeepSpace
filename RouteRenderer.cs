@@ -8,7 +8,7 @@ using SharpDX.Direct2D1;
 
 namespace DeepSpace
 {
-    class RouteRenderer: Renderer
+    class RouteRenderer: IRenderer
     {
         private Route route;
         private Brush brush;

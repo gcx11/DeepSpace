@@ -16,8 +16,17 @@ namespace DeepSpace
         {
             Button menuButton = new Button(game, new Vector2(400.0f, 300.0f), 100.0f, 2);
             menuButton.buttonClickedEvent += delegate{
-                if (game.level != 0) game.level++;
-                game.scene = new GameScene(game);
+                if (game.level != 0)
+                { 
+                    game.level++;
+                }
+                if (game.level <= 4) {
+                    game.scene = new GameScene(game);
+                }
+                else
+                {
+                    game.scene = new CongratulationScene(game);
+                }
             };
             this.objects = new List<GameObject>() {menuButton, 
                 new Text(game, new Vector2(310.0f, 100.0f), "You have won!", 30.0f), new Text(game, new Vector2(360.0f, 290.0f), "Next level")};

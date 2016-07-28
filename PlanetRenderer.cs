@@ -9,7 +9,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class PlanetRenderer: Renderer
+    class PlanetRenderer: IRenderer
     {
         private Planet planet;
         private Ellipse ellipse;

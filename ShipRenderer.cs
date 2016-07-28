@@ -9,10 +9,9 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class ShipRenderer: Renderer
+    class ShipRenderer: IRenderer
     {
         private Ship ship;
-        //private Ellipse ellipse;
         private Vector2 nose, firstWing, secondWing, middle, normal;
         private Brush brush;
         private TextFormat textFormat;
@@ -20,7 +19,6 @@ namespace DeepSpace
         public ShipRenderer(Ship ship)
         {
             this.ship = ship;
-            //this.ellipse = new Ellipse(ship.position, 3.0f, 3.0f);
             this.brush = ship.game.brushes[ship.team];
             this.normal = new Vector2(ship.direction.Y, -ship.direction.X);
             normal.Normalize();
@@ -35,10 +33,6 @@ namespace DeepSpace
             middle = ship.position;
             firstWing = ship.position - 7*ship.direction - 7*normal;
             secondWing = ship.position - 7*ship.direction + 7*normal;
-            /*
-            ellipse.Point = ship.position;
-            ship.game.target.FillEllipse(ellipse, brush);
-             * */
             ship.game.target.DrawLine(nose, firstWing, brush);
             ship.game.target.DrawLine(nose, secondWing, brush);
             ship.game.target.DrawLine(middle, firstWing, brush);

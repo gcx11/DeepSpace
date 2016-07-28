@@ -102,14 +102,13 @@
     <Compile Include="PlanetRenderer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderer.cs" />
+    <Compile Include="IRenderer.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="RouteRenderer.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="ShipRenderer.cs" />
-    <Compile Include="Star.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="WinLooseChecker.cs" />
     <Compile Include="WinScene.cs" />

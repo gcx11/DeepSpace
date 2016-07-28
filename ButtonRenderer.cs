@@ -10,7 +10,7 @@ using SharpDX.DirectWrite;
 
 namespace DeepSpace
 {
-    class ButtonRenderer: Renderer
+    class ButtonRenderer: IRenderer
     {
         private Button button;
         private Ellipse ellipse;

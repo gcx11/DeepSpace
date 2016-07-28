@@ -35,16 +35,12 @@ namespace DeepSpace
             }
             else if (game.level < 5)
             {
+                //tutorial
                 this.objects = LevelLoader.LoadLevel(game, game.level);
                 this.playerTeam = 1;
                 objects.Add(new AI(game));
                 objects.Add(new WinLooseChecker(game));
             }
-            else
-            {
-                game.scene = new CongratulationScene(game);
-            }
-            
         }
 
         public override void OnKeyPress(KeyPressEventArgs e)
